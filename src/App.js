@@ -7,9 +7,7 @@ function App() {
     <div className="App">
       <div className="container">
         <header className="App-header">
-          <a href="https://www.shecodes.io/" target="_blank" rel="noreferrer">
-            <img src={logo} className="logo" alt="SheCodes Logo" />
-          </a>
+          
         </header>
         <Dictionary defaultKeyword="sunset" />
         <footer>
