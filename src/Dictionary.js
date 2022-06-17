@@ -4,8 +4,8 @@ import Results from "./Results";
 import Photos from "./Photos";
 import "./Dictionary.css";
 
-export default function Dictionary() {
-  let [keyword, setKeyword] = useState("");
+export default function Dictionary(props) {
+  let [keyword, setKeyword] = useState(props.defaultKeyword);
   let [results, setResults] = useState(null);
   let [loaded, setLoaded]= useState(false);
   let [photos, setPhotos]= useState(null);
@@ -17,7 +17,7 @@ export default function Dictionary() {
   function handlePexelsResponse(response){
     setPhotos(response.data.photos);
   }
-  function search(event) {
+  function search() {
     
     let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en_US/${keyword}`;
     axios.get(apiUrl).then(handleResponse);
