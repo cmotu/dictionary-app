@@ -18,7 +18,7 @@ export default function Dictionary() {
     setPhotos(response.data.photos);
   }
   function search(event) {
-    event.preventDefault();
+    
     let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en_US/${keyword}`;
     axios.get(apiUrl).then(handleResponse);
 
@@ -28,6 +28,11 @@ let headers= {Authoriztion:`Bearer ${pexelsApiKey}`};
     axios.get(pexelsApiUrl, {headers:headers}).then(handlePexelsResponse);
   }
 
+  function handleSubmit(event){
+    event.preventDefault();
+    search();
+  }
+
   function handleKeywordChange(event) {
     setKeyword(event.target.value);
   }
@@ -35,18 +40,28 @@ function load(){
   setLoaded(true);
   search();
 }
-if (loaded){
-  return (
-    <div className="Dictionary">
-      <form onSubmit={search}>
-        <input type="search" onChange={handleKeywordChange} />
-      </form>
-      <Results results={results} />
-      <Photos photos={photos} />
-    </div>
-  );
-  }
-  else {
+
+if (loaded) {
+    return (
+      <div className="Dictionary">
+        <section>
+          <h1>What word do you want to look up?</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="search"
+              onChange={handleKeywordChange}
+              defaultValue={props.defaultKeyword}
+            />
+          </form>
+          <div className="hint">
+            suggested words: sunset, wine, yoga, plant...
+          </div>
+        </section>
+        <Results results={results} />
+        <Photos photos={photos} />
+      </div>
+    );
+  } else {
     load();
     return "Loading";
   }
